@@ -5,7 +5,7 @@ import time
 from flask import Flask, render_template_string
 from threading import Thread
 
-API_KEY = "MASUKKAN_API_KEY_KAMU"
+API_KEY = "150558b14aac4c49a8c1f4511c38c3e3
 
 app = Flask(__name__)
 
