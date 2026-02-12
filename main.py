@@ -57,6 +57,8 @@ def run_bot():
         msg = f"🤖 SELL AI\nEntry: {price}\nConfidence: {round(sell_prob*100,2)}%"
         bot.send_message(chat_id=CHAT_ID,text=msg)
 
-while True:
-    run_bot()
-    time.sleep(300)
+    if __name__ == "__main__":
+    while True:
+        run_bot()
+        time.sleep(60)
+
