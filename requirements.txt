@@ -1,6 +1,5 @@
 requests
 pandas
-numpy
 ta
-scikit-learn
-python-telegram-bot
+flask
+gunicorn
