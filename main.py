@@ -15,6 +15,8 @@ CHAT_ID = os.getenv("CHAT_ID")
 API_KEY = os.getenv("API_KEY")
 
 bot = Bot(token=TOKEN)
+bot.send_message(chat_id=CHAT_ID, text="✅ Bot berhasil online")
+
 
 # ========================
 # GET DATA XAUUSD
