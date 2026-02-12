@@ -7,7 +7,7 @@ import os
 API_KEY = "4295156bcbd24bffa6163ec156b5dce1"
 
 def get_data(interval):
-    url = f"https://api.twelvedata.com/time_series?symbol=XAU/USD&interval={interval}&outputsize=300&apikey={API_KEY}"
+    url = f"https://api.twelvedata.com/time_series?symbol=XAU/USD&interval={interval}&outputsize=300&apikey={4295156bcbd24bffa6163ec156b5dce1}"
     r = requests.get(url).json()
 
     if "values" not in r:
