@@ -7,8 +7,9 @@ import ta
 from sklearn.ensemble import RandomForestClassifier
 from telegram import Bot
 
-TOKEN = os.getenv("8292809405:AAF3ZJWbK7oOuxDlS1R5K0R04NbwT-dHgpQ")
-CHAT_ID = os.getenv("8535165886")
+TOKEN = os.getenv("TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
+
 
 bot = Bot(token=TOKEN)
 
