@@ -13,7 +13,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 bot = Bot(token=TOKEN)
 
 def get_data():
-    url = "https://api.twelvedata.com/time_series?symbol=XAU/USD&interval=5min&outputsize=200&apikey=demo"
+    url = "https://api.twelvedata.com/time_series?symbol=XAU/USD&interval=5min&outputsize=200&apikey=f1543ec868da4145b962c31b56ddbae0"
     r = requests.get(url).json()
     if "values" not in r:
         return None
