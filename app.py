@@ -4,7 +4,7 @@ import ta
 import time
 import os
 
-API_KEY = "ISI_API_KAMU"
+API_KEY = "4295156bcbd24bffa6163ec156b5dce1"
 
 def get_data(interval):
     url = f"https://api.twelvedata.com/time_series?symbol=XAU/USD&interval={interval}&outputsize=300&apikey={API_KEY}"
