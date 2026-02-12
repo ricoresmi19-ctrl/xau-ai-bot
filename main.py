@@ -7,26 +7,47 @@ import ta
 from sklearn.ensemble import RandomForestClassifier
 from telegram import Bot
 
+# ========================
+# ENV VARIABLES (Railway)
+# ========================
 TOKEN = os.getenv("TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
+API_KEY = os.getenv("API_KEY")
 
 bot = Bot(token=TOKEN)
 
+# ========================
+# GET DATA XAUUSD
+# ========================
 def get_data():
-    url = "https://api.twelvedata.com/time_series?symbol=XAU/USD&interval=5min&outputsize=200&apikey=f1543ec868da4145b962c31b56ddbae0"
-    r = requests.get(url).json()
-    if "values" not in r:
-        return None
-    df = pd.DataFrame(r['values'])
-    df = df.iloc[::-1]
-    for col in ['open','high','low','close']:
-        df[col] = df[col].astype(float)
-    return df
+    url = f"https://api.twelvedata.com/time_series?symbol=XAU/USD&interval=5min&outputsize=200&apikey={API_KEY}"
+    
+    try:
+        r = requests.get(url).json()
+        
+        if "values" not in r:
+            print("❌ Data tidak tersedia:", r)
+            return None
+        
+        df = pd.DataFrame(r['values'])
+        df = df.iloc[::-1]
 
+        for col in ['open','high','low','close']:
+            df[col] = df[col].astype(float)
+
+        return df
+
+    except Exception as e:
+        print("ERROR GET DATA:", e)
+        return None
+
+
+# ========================
+# AI SIGNAL
+# ========================
 def run_bot():
     df = get_data()
     if df is None:
-        print("Data tidak tersedia")
         return
 
     df['rsi'] = ta.momentum.rsi(df['close'], 14)
@@ -46,18 +67,26 @@ def run_bot():
 
     buy_prob = prob[1]
     sell_prob = prob[0]
-
     price = last['close']
 
+    print(f"Harga: {price} | BuyProb: {buy_prob} | SellProb: {sell_prob}")
+
     if buy_prob > 0.7:
-        msg = f"🤖 BUY AI\nEntry: {price}\nConfidence: {round(buy_prob*100,2)}%"
-        bot.send_message(chat_id=CHAT_ID, text=msg)
+        msg = f"🤖 BUY XAUUSD\nEntry: {price}\nConfidence: {round(buy_prob*100,2)}%"
+        bot.send_message(chat_id=CHAT_ID,text=msg)
+        print("Signal BUY terkirim")
 
     elif sell_prob > 0.7:
-        msg = f"🤖 SELL AI\nEntry: {price}\nConfidence: {round(sell_prob*100,2)}%"
-        bot.send_message(chat_id=CHAT_ID, text=msg)
+        msg = f"🤖 SELL XAUUSD\nEntry: {price}\nConfidence: {round(sell_prob*100,2)}%"
+        bot.send_message(chat_id=CHAT_ID,text=msg)
+        print("Signal SELL terkirim")
 
+
+# ========================
+# LOOP
+# ========================
 if __name__ == "__main__":
+    print("Bot AI XAUUSD aktif...")
     while True:
         run_bot()
         time.sleep(60)
