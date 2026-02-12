@@ -1,5 +1,7 @@
-requests
-pandas
-ta
 flask
+pandas
+numpy
+requests
+ta
 gunicorn
+
